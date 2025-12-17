@@ -1,0 +1,2282 @@
+Hero section coding 
+
+<!DOCTYPE html>
+
+<html lang="bn">
+
+<head>
+
+<meta charset="UTF-8">
+
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700\&display=swap" rel="stylesheet">
+
+
+
+<style>
+
+&nbsp;   /\* Global Fixes for Sharpness \*/
+
+&nbsp;   .rice-hero-wrapper \* {
+
+&nbsp;       -webkit-font-smoothing: antialiased;
+
+&nbsp;       -moz-osx-font-smoothing: grayscale;
+
+&nbsp;       text-rendering: optimizeLegibility;
+
+&nbsp;   }
+
+
+
+&nbsp;   .rice-hero-wrapper {
+
+&nbsp;       font-family: 'Hind Siliguri', sans-serif !important;
+
+&nbsp;       position: relative;
+
+&nbsp;       min-height: 100vh;
+
+&nbsp;       display: flex;
+
+&nbsp;       align-items: center;
+
+&nbsp;       justify-content: center;
+
+&nbsp;       overflow: hidden;
+
+&nbsp;       background-color: #000;
+
+&nbsp;       color: white;
+
+&nbsp;       text-align: center;
+
+&nbsp;       padding: 80px 20px;
+
+&nbsp;       box-sizing: border-box;
+
+&nbsp;   }
+
+
+
+&nbsp;   /\* High Quality Background Image \*/
+
+&nbsp;   .rice-hero-bg {
+
+&nbsp;       position: absolute;
+
+&nbsp;       inset: 0;
+
+&nbsp;       /\* আমি এখানে একটি হাই-কোয়ালিটি Unsplash ছবি দিয়েছি যাতে ঝাপসা না লাগে \*/
+
+&nbsp;       background-image: url('https://images.unsplash.com/photo-1586201375761-83865001e31c?q=80\&w=2070\&auto=format\&fit=crop'); 
+
+&nbsp;       background-size: cover;
+
+&nbsp;       background-position: center;
+
+&nbsp;       z-index: 1;
+
+&nbsp;       /\* Image sharpness fix \*/
+
+&nbsp;       image-rendering: -webkit-optimize-contrast; 
+
+&nbsp;   }
+
+
+
+&nbsp;   .rice-hero-overlay {
+
+&nbsp;       position: absolute;
+
+&nbsp;       inset: 0;
+
+&nbsp;       background: linear-gradient(to bottom, rgba(0,0,0,0.6), rgba(0,0,0,0.4), rgba(0,0,0,0.8));
+
+&nbsp;       z-index: 2;
+
+&nbsp;   }
+
+
+
+&nbsp;   .rice-hero-content {
+
+&nbsp;       position: relative;
+
+&nbsp;       z-index: 10;
+
+&nbsp;       max-width: 1150px;
+
+&nbsp;       width: 100%;
+
+&nbsp;       margin: 0 auto;
+
+&nbsp;       /\* Prevents blur during animation \*/
+
+&nbsp;       transform: translateZ(0); 
+
+&nbsp;       will-change: transform, opacity;
+
+&nbsp;   }
+
+
+
+&nbsp;   /\* Premium Badge - Sharper Text \*/
+
+&nbsp;   .premium-badge {
+
+&nbsp;       display: inline-flex;
+
+&nbsp;       align-items: center;
+
+&nbsp;       gap: 8px;
+
+&nbsp;       background: rgba(0, 0, 0, 0.4); /\* Less blur reliance \*/
+
+&nbsp;       border: 1px solid rgba(251, 191, 36, 0.6);
+
+&nbsp;       border-radius: 50px;
+
+&nbsp;       padding: 10px 24px;
+
+&nbsp;       margin-bottom: 24px;
+
+&nbsp;       box-shadow: 0 4px 20px rgba(245, 158, 11, 0.3);
+
+&nbsp;       opacity: 0;
+
+&nbsp;       animation: fadeInUp 0.8s forwards;
+
+&nbsp;       backdrop-filter: blur(10px);
+
+&nbsp;       -webkit-backdrop-filter: blur(10px);
+
+&nbsp;   }
+
+&nbsp;   
+
+&nbsp;   .badge-text {
+
+&nbsp;       color: #FEF3C7;
+
+&nbsp;       font-weight: 700;
+
+&nbsp;       letter-spacing: 0.5px;
+
+&nbsp;       text-transform: uppercase;
+
+&nbsp;       font-size: 15px;
+
+&nbsp;   }
+
+
+
+&nbsp;   /\* Main Headline - Sharp Shadows \*/
+
+&nbsp;   .main-headline {
+
+&nbsp;       font-size: 32px;
+
+&nbsp;       line-height: 1.2;
+
+&nbsp;       font-weight: 700;
+
+&nbsp;       margin-bottom: 20px;
+
+&nbsp;       opacity: 0;
+
+&nbsp;       animation: fadeInUp 0.8s 0.2s forwards;
+
+&nbsp;       text-shadow: 0 2px 10px rgba(0,0,0,0.5); /\* Adds contrast \*/
+
+&nbsp;   }
+
+
+
+&nbsp;   @media (min-width: 768px) { .main-headline { font-size: 60px; } }
+
+&nbsp;   @media (min-width: 1024px) { .main-headline { font-size: 72px; } }
+
+
+
+&nbsp;   .gradient-text {
+
+&nbsp;       background: linear-gradient(to right, #FDE68A, #FEF08A, #FED7AA);
+
+&nbsp;       -webkit-background-clip: text;
+
+&nbsp;       background-clip: text;
+
+&nbsp;       color: transparent;
+
+&nbsp;       display: inline-block;
+
+&nbsp;       font-weight: 800; /\* Bolder looks sharper \*/
+
+&nbsp;   }
+
+&nbsp;   
+
+&nbsp;   .sub-headline {
+
+&nbsp;       font-size: 18px;
+
+&nbsp;       color: #F3F4F6;
+
+&nbsp;       margin: 0 auto 40px;
+
+&nbsp;       max-width: 750px;
+
+&nbsp;       line-height: 1.7;
+
+&nbsp;       background: rgba(0,0,0,0.3);
+
+&nbsp;       backdrop-filter: blur(5px);
+
+&nbsp;       padding: 20px;
+
+&nbsp;       border-radius: 16px;
+
+&nbsp;       border: 1px solid rgba(255,255,255,0.15);
+
+&nbsp;       opacity: 0;
+
+&nbsp;       animation: fadeInUp 0.8s 0.4s forwards;
+
+&nbsp;       font-weight: 400;
+
+&nbsp;   }
+
+&nbsp;   
+
+&nbsp;   @media (min-width: 768px) { .sub-headline { font-size: 22px; } }
+
+
+
+&nbsp;   .highlight-text { color: #FCD34D; font-weight: 600; }
+
+
+
+&nbsp;   /\* Buttons \*/
+
+&nbsp;   .btn-group {
+
+&nbsp;       display: flex;
+
+&nbsp;       flex-direction: column;
+
+&nbsp;       gap: 16px;
+
+&nbsp;       justify-content: center;
+
+&nbsp;       align-items: center;
+
+&nbsp;       opacity: 0;
+
+&nbsp;       animation: fadeInUp 0.8s 0.6s forwards;
+
+&nbsp;   }
+
+&nbsp;   @media (min-width: 640px) { .btn-group { flex-direction: row; } }
+
+
+
+&nbsp;   .btn {
+
+&nbsp;       display: inline-flex;
+
+&nbsp;       align-items: center;
+
+&nbsp;       justify-content: center;
+
+&nbsp;       padding: 16px 36px;
+
+&nbsp;       font-size: 17px;
+
+&nbsp;       font-weight: 700;
+
+&nbsp;       border-radius: 50px;
+
+&nbsp;       cursor: pointer;
+
+&nbsp;       transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+&nbsp;       text-decoration: none;
+
+&nbsp;       font-family: 'Hind Siliguri', sans-serif;
+
+&nbsp;       /\* Hardware acceleration to prevent blur on hover \*/
+
+&nbsp;       -webkit-backface-visibility: hidden;
+
+&nbsp;       backface-visibility: hidden;
+
+&nbsp;       transform: translateZ(0);
+
+&nbsp;   }
+
+
+
+&nbsp;   .btn-primary {
+
+&nbsp;       background: linear-gradient(90deg, #F59E0B, #EA580C);
+
+&nbsp;       color: white;
+
+&nbsp;       border: none;
+
+&nbsp;       box-shadow: 0 4px 15px rgba(234, 88, 12, 0.4);
+
+&nbsp;   }
+
+
+
+&nbsp;   .btn-primary:hover {
+
+&nbsp;       transform: scale(1.05);
+
+&nbsp;       box-shadow: 0 6px 20px rgba(234, 88, 12, 0.6);
+
+&nbsp;   }
+
+
+
+&nbsp;   .btn-outline {
+
+&nbsp;       background: rgba(255,255,255,0.1);
+
+&nbsp;       border: 2px solid rgba(255,255,255,0.5);
+
+&nbsp;       color: white;
+
+&nbsp;       backdrop-filter: blur(5px);
+
+&nbsp;   }
+
+
+
+&nbsp;   .btn-outline:hover {
+
+&nbsp;       background: white;
+
+&nbsp;       color: #111827;
+
+&nbsp;       transform: scale(1.05);
+
+&nbsp;   }
+
+
+
+&nbsp;   .btn svg { margin-right: 10px; width: 22px; height: 22px; }
+
+
+
+&nbsp;   /\* Stats Grid \*/
+
+&nbsp;   .stats-grid {
+
+&nbsp;       display: grid;
+
+&nbsp;       grid-template-columns: repeat(3, 1fr);
+
+&nbsp;       gap: 15px;
+
+&nbsp;       margin-top: 60px;
+
+&nbsp;       opacity: 0;
+
+&nbsp;       animation: fadeInUp 0.8s 0.8s forwards;
+
+&nbsp;   }
+
+&nbsp;   @media (min-width: 768px) { .stats-grid { gap: 40px; } }
+
+
+
+&nbsp;   .stat-card {
+
+&nbsp;       background: rgba(255, 255, 255, 0.1);
+
+&nbsp;       backdrop-filter: blur(8px);
+
+&nbsp;       border: 1px solid rgba(255, 255, 255, 0.2);
+
+&nbsp;       border-radius: 16px;
+
+&nbsp;       padding: 20px 10px;
+
+&nbsp;       transition: transform 0.3s;
+
+&nbsp;   }
+
+&nbsp;   
+
+&nbsp;   .stat-value {
+
+&nbsp;       font-size: 28px;
+
+&nbsp;       font-weight: 800;
+
+&nbsp;       color: #FCD34D;
+
+&nbsp;       text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+
+&nbsp;   }
+
+&nbsp;   @media (min-width: 768px) { .stat-value { font-size: 42px; } }
+
+
+
+&nbsp;   .stat-label { font-size: 15px; color: #E5E7EB; margin-top: 5px; font-weight: 500;}
+
+
+
+&nbsp;   /\* Keyframes \*/
+
+&nbsp;   @keyframes fadeInUp {
+
+&nbsp;       from { opacity: 0; transform: translateY(30px); }
+
+&nbsp;       to { opacity: 1; transform: translateY(0); }
+
+&nbsp;   }
+
+</style>
+
+</head>
+
+<body>
+
+
+
+<div class="rice-hero-wrapper">
+
+&nbsp;   <div class="rice-hero-bg"></div>
+
+&nbsp;   <div class="rice-hero-overlay"></div>
+
+
+
+&nbsp;   <div class="rice-hero-content">
+
+&nbsp;       <div class="premium-badge">
+
+&nbsp;           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FCD34D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg>
+
+&nbsp;           <span class="badge-text">প্রিমিয়াম কোয়ালিটি রাইস</span>
+
+&nbsp;       </div>
+
+
+
+&nbsp;       <h1 class="main-headline">
+
+&nbsp;           <span style="display:block; color:white; margin-bottom: 10px;">প্রতিদিনের খাবারে আনুন</span>
+
+&nbsp;           <span class="gradient-text">প্রিমিয়াম মানের নিশ্চয়তা</span>
+
+&nbsp;       </h1>
+
+
+
+&nbsp;       <p class="sub-headline">
+
+&nbsp;           <span class="highlight-text">লম্বা দানা</span>, <span class="highlight-text">নরম ও ফ্লাফি টেক্সচার</span> এবং <span class="highlight-text">প্রাকৃতিক সুগন্ধ</span>—যা প্রতিটি রান্নাকে করে বিশেষ।
+
+&nbsp;       </p>
+
+
+
+&nbsp;       <div class="btn-group">
+
+&nbsp;           <button onclick="handleRiceOrder()" class="btn btn-primary">
+
+&nbsp;               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+
+&nbsp;               অর্ডার করুন এখনই
+
+&nbsp;           </button>
+
+&nbsp;           <button onclick="scrollToHighlights()" class="btn btn-outline">
+
+&nbsp;               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+
+&nbsp;               গুণমান দেখুন
+
+&nbsp;           </button>
+
+&nbsp;       </div>
+
+
+
+&nbsp;       <div class="stats-grid">
+
+&nbsp;           <div class="stat-card">
+
+&nbsp;               <div class="stat-value">১০০%</div>
+
+&nbsp;               <div class="stat-label">খাঁটি চাল</div>
+
+&nbsp;           </div>
+
+&nbsp;           <div class="stat-card">
+
+&nbsp;               <div class="stat-value">৫০০০+</div>
+
+&nbsp;               <div class="stat-label">সন্তুষ্ট গ্রাহক</div>
+
+&nbsp;           </div>
+
+&nbsp;           <div class="stat-card">
+
+&nbsp;               <div class="stat-value">২৪/৭</div>
+
+&nbsp;               <div class="stat-label">সাপোর্ট</div>
+
+&nbsp;           </div>
+
+&nbsp;       </div>
+
+&nbsp;   </div>
+
+</div>
+
+
+
+<script>
+
+&nbsp;   function handleRiceOrder() {
+
+&nbsp;       const phone = "8801708681830";
+
+&nbsp;       const message = encodeURIComponent("আসসালামু আলাইকুম, আমি প্রিমিয়াম চাল অর্ডার করতে চাই।");
+
+&nbsp;       window.open(`https://wa.me/${phone}?text=${message}`, '\_blank');
+
+&nbsp;   }
+
+
+
+&nbsp;   function scrollToHighlights() {
+
+&nbsp;       const element = document.getElementById('highlights');
+
+&nbsp;       if (element) {
+
+&nbsp;           element.scrollIntoView({ behavior: 'smooth' });
+
+&nbsp;       } else {
+
+&nbsp;           // If section is on the same page but ID not found, just scroll down
+
+&nbsp;           window.scrollBy({ top: 700, behavior: 'smooth' });
+
+&nbsp;       }
+
+&nbsp;   }
+
+</script>
+
+
+
+</body>
+
+</html>
+
+
+
+
+
+
+
+# Boday section 
+
+import React from 'react';
+
+import { motion } from 'framer-motion';
+
+import { Sparkles, Wheat, Timer, Package, Shield, Heart, Leaf, Award, Droplets, Zap, DollarSign, TrendingUp } from 'lucide-react';
+
+
+
+const highlights = \[
+
+&nbsp;   {
+
+&nbsp;       icon: Shield,
+
+&nbsp;       title: "১০০% খাঁটি ও পরিষ্কার",
+
+&nbsp;       description: "কোনো ভেজাল বা মেশানো নেই, সম্পূর্ণ প্রাকৃতিক চাল",
+
+&nbsp;       color: "from-emerald-500 to-green-600"
+
+&nbsp;   },
+
+&nbsp;   {
+
+&nbsp;       icon: Wheat,
+
+&nbsp;       title: "লম্বা ও সমান দানা",
+
+&nbsp;       description: "প্রতিটি দানা একই সাইজের, রান্নায় সুন্দর দেখায়",
+
+&nbsp;       color: "from-amber-500 to-yellow-600"
+
+&nbsp;   },
+
+&nbsp;   {
+
+&nbsp;       icon: Timer,
+
+&nbsp;       title: "দ্রুত রান্না হয়",
+
+&nbsp;       description: "কম সময়ে রান্না, সহজে হজমযোগ্য",
+
+&nbsp;       color: "from-blue-500 to-cyan-600"
+
+&nbsp;   },
+
+&nbsp;   {
+
+&nbsp;       icon: Heart,
+
+&nbsp;       title: "পরিবারের জন্য আদর্শ",
+
+&nbsp;       description: "ভাত, পোলাও ও বিরিয়ানির জন্য পারফেক্ট",
+
+&nbsp;       color: "from-rose-500 to-pink-600"
+
+&nbsp;   },
+
+&nbsp;   {
+
+&nbsp;       icon: Sparkles,
+
+&nbsp;       title: "নরম ও ফ্লাফি",
+
+&nbsp;       description: "রান্নার পর প্রতিটি দানা আলাদা ও নরম থাকে",
+
+&nbsp;       color: "from-purple-500 to-violet-600"
+
+&nbsp;   },
+
+&nbsp;   {
+
+&nbsp;       icon: Package,
+
+&nbsp;       title: "আধুনিক প্যাকেজিং",
+
+&nbsp;       description: "দীর্ঘদিন সংরক্ষণযোগ্য, ফ্রেশনেস বজায় থাকে",
+
+&nbsp;       color: "from-orange-500 to-red-600"
+
+&nbsp;   },
+
+&nbsp;   {
+
+&nbsp;       icon: Leaf,
+
+&nbsp;       title: "প্রাকৃতিক প্রক্রিয়াজাতকরণ",
+
+&nbsp;       description: "কোনো কেমিকেল ছাড়াই প্রাকৃতিক উপায়ে প্রসেস করা",
+
+&nbsp;       color: "from-green-500 to-emerald-600"
+
+&nbsp;   },
+
+&nbsp;   {
+
+&nbsp;       icon: Award,
+
+&nbsp;       title: "প্রিমিয়াম কোয়ালিটি",
+
+&nbsp;       description: "সর্বোচ্চ মানের চাল, প্রতিটি ব্যাচ পরীক্ষিত",
+
+&nbsp;       color: "from-yellow-500 to-amber-600"
+
+&nbsp;   },
+
+&nbsp;   {
+
+&nbsp;       icon: Droplets,
+
+&nbsp;       title: "পুষ্টিগুণ সমৃদ্ধ",
+
+&nbsp;       description: "প্রাকৃতিক পুষ্টি উপাদান সংরক্ষিত থাকে",
+
+&nbsp;       color: "from-cyan-500 to-blue-600"
+
+&nbsp;   },
+
+&nbsp;   {
+
+&nbsp;       icon: Zap,
+
+&nbsp;       title: "দ্রুত ডেলিভারি",
+
+&nbsp;       description: "সারাদেশে দ্রুত ও নিরাপদ ডেলিভারি সেবা",
+
+&nbsp;       color: "from-indigo-500 to-purple-600"
+
+&nbsp;   },
+
+&nbsp;   {
+
+&nbsp;       icon: DollarSign,
+
+&nbsp;       title: "সাশ্রয়ী মূল্য",
+
+&nbsp;       description: "প্রিমিয়াম মানে সাশ্রয়ী দামে পাবেন",
+
+&nbsp;       color: "from-teal-500 to-cyan-600"
+
+&nbsp;   },
+
+&nbsp;   {
+
+&nbsp;       icon: TrendingUp,
+
+&nbsp;       title: "বাল্ক অর্ডার সুবিধা",
+
+&nbsp;       description: "রেস্টুরেন্ট ও ব্যবসায়ীদের জন্য বিশেষ মূল্য",
+
+&nbsp;       color: "from-pink-500 to-rose-600"
+
+&nbsp;   }
+
+];
+
+
+
+export default function ProductHighlights() {
+
+&nbsp;   return (
+
+&nbsp;       <section id="highlights" className="py-24 bg-gradient-to-b from-orange-50 via-amber-50 to-yellow-50 relative overflow-hidden">
+
+&nbsp;           {/\* Decorative Background \*/}
+
+&nbsp;           <div className="absolute top-0 left-0 w-96 h-96 bg-gradient-to-br from-amber-300/30 to-orange-300/30 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2" />
+
+&nbsp;           <div className="absolute bottom-0 right-0 w-96 h-96 bg-gradient-to-br from-yellow-300/30 to-amber-300/30 rounded-full blur-3xl translate-x-1/2 translate-y-1/2" />
+
+
+
+&nbsp;           <div className="max-w-7xl mx-auto px-4 relative z-10">
+
+&nbsp;               {/\* Section Header \*/}
+
+&nbsp;               <motion.div
+
+&nbsp;                   initial={{ opacity: 0, y: 30 }}
+
+&nbsp;                   whileInView={{ opacity: 1, y: 0 }}
+
+&nbsp;                   viewport={{ once: true }}
+
+&nbsp;                   transition={{ duration: 0.6 }}
+
+&nbsp;                   className="text-center mb-16"
+
+&nbsp;               >
+
+&nbsp;                   <span className="inline-block px-4 py-1.5 bg-gradient-to-r from-amber-100 to-orange-100 border border-amber-200 text-amber-800 rounded-full text-sm font-bold mb-4 shadow-sm">
+
+&nbsp;                       আমাদের বৈশিষ্ট্য
+
+&nbsp;                   </span>
+
+&nbsp;                   <h2 className="text-3xl md:text-5xl font-bold text-gray-900 mb-4">
+
+&nbsp;                       কেন আমাদের চাল <span className="text-amber-600">বিশেষ?</span>
+
+&nbsp;                   </h2>
+
+&nbsp;                   <p className="text-gray-600 max-w-2xl mx-auto text-lg">
+
+&nbsp;                       প্রতিটি দানায় লুকিয়ে আছে গুণমান ও যত্নের গল্প
+
+&nbsp;                   </p>
+
+&nbsp;               </motion.div>
+
+
+
+&nbsp;               {/\* Highlights Grid \*/}
+
+&nbsp;               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
+
+&nbsp;                   {highlights.map((item, index) => (
+
+&nbsp;                       <motion.div
+
+&nbsp;                           key={index}
+
+&nbsp;                           initial={{ opacity: 0, y: 30 }}
+
+&nbsp;                           whileInView={{ opacity: 1, y: 0 }}
+
+&nbsp;                           viewport={{ once: true }}
+
+&nbsp;                           transition={{ duration: 0.5, delay: index \* 0.1 }}
+
+&nbsp;                           whileHover={{ y: -8, transition: { duration: 0.3 } }}
+
+&nbsp;                           className="group"
+
+&nbsp;                       >
+
+&nbsp;                           <div className="h-full bg-gradient-to-br from-white via-amber-50/20 to-orange-50/30 rounded-2xl md:rounded-3xl p-6 md:p-8 shadow-xl shadow-amber-200/30 border border-amber-200/60 hover:shadow-2xl hover:shadow-amber-400/40 hover:border-amber-300 hover:-translate-y-2 transition-all duration-300">
+
+&nbsp;                               {/\* Icon \*/}
+
+&nbsp;                               <div className={`w-14 h-14 md:w-16 md:h-16 rounded-xl md:rounded-2xl bg-gradient-to-br ${item.color} flex items-center justify-center mb-4 md:mb-6 shadow-lg group-hover:scale-110 group-hover:rotate-6 transition-all duration-300`}>
+
+&nbsp;                                   <item.icon className="w-7 h-7 md:w-8 md:h-8 text-white" />
+
+&nbsp;                               </div>
+
+
+
+&nbsp;                               {/\* Content \*/}
+
+&nbsp;                               <h3 className="text-lg md:text-xl font-bold text-gray-900 mb-2 md:mb-3">
+
+&nbsp;                                   {item.title}
+
+&nbsp;                               </h3>
+
+&nbsp;                               <p className="text-sm md:text-base text-gray-600 leading-relaxed">
+
+&nbsp;                                   {item.description}
+
+&nbsp;                               </p>
+
+&nbsp;                           </div>
+
+&nbsp;                       </motion.div>
+
+&nbsp;                   ))}
+
+&nbsp;               </div>
+
+
+
+&nbsp;               {/\* Bottom Image Strip \*/}
+
+&nbsp;               <motion.div
+
+&nbsp;                   initial={{ opacity: 0, y: 40 }}
+
+&nbsp;                   whileInView={{ opacity: 1, y: 0 }}
+
+&nbsp;                   viewport={{ once: true }}
+
+&nbsp;                   transition={{ duration: 0.8 }}
+
+&nbsp;                   className="mt-16 md:mt-20 relative rounded-2xl md:rounded-3xl overflow-hidden shadow-2xl"
+
+&nbsp;               >
+
+&nbsp;                   <img 
+
+&nbsp;                       src="https://onelytea.com/wp112/wp-content/uploads/2025/12/rice-02.jpg"
+
+&nbsp;                       alt="Premium Rice Quality"
+
+&nbsp;                       className="w-full h-48 sm:h-64 md:h-80 lg:h-96 object-cover"
+
+&nbsp;                   />
+
+&nbsp;                   <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-transparent flex items-center">
+
+&nbsp;                       <div className="p-6 sm:p-8 md:p-12 max-w-lg md:max-w-xl">
+
+&nbsp;                           <motion.h3 
+
+&nbsp;                               initial={{ opacity: 0, x: -30 }}
+
+&nbsp;                               whileInView={{ opacity: 1, x: 0 }}
+
+&nbsp;                               viewport={{ once: true }}
+
+&nbsp;                               className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-3 md:mb-4"
+
+&nbsp;                           >
+
+&nbsp;                               প্রকৃতির সেরা উপহার
+
+&nbsp;                           </motion.h3>
+
+&nbsp;                           <motion.p 
+
+&nbsp;                               initial={{ opacity: 0, x: -30 }}
+
+&nbsp;                               whileInView={{ opacity: 1, x: 0 }}
+
+&nbsp;                               viewport={{ once: true }}
+
+&nbsp;                               transition={{ delay: 0.2 }}
+
+&nbsp;                               className="text-sm sm:text-base md:text-lg text-gray-200 leading-relaxed"
+
+&nbsp;                           >
+
+&nbsp;                               সতেজ ধান থেকে যত্নের সাথে প্রসেস করা, আপনার টেবিলে পৌঁছায় সর্বোচ্চ গুণমান
+
+&nbsp;                           </motion.p>
+
+&nbsp;                       </div>
+
+&nbsp;                   </div>
+
+&nbsp;               </motion.div>
+
+&nbsp;           </div>
+
+&nbsp;       </section>
+
+&nbsp;   );
+
+}  
+
+
+
+# reviews 
+
+
+
+import React, { useState } from 'react';
+
+import { motion, AnimatePresence } from 'framer-motion';
+
+import { UtensilsCrossed, Soup, Beef, Store } from 'lucide-react';
+
+
+
+const useCases = \[
+
+&nbsp;   {
+
+&nbsp;       id: 'daily',
+
+&nbsp;       icon: UtensilsCrossed,
+
+&nbsp;       title: "দৈনন্দিন ভাত",
+
+&nbsp;       titleEn: "Daily Rice",
+
+&nbsp;       description: "প্রতিদিনের খাবারে নরম ও সুস্বাদু ভাত। পরিবারের সবার পছন্দ।",
+
+&nbsp;       image: "https://onelytea.com/wp112/wp-content/uploads/2025/12/rice-06.jpg",
+
+&nbsp;       color: "amber"
+
+&nbsp;   },
+
+&nbsp;   {
+
+&nbsp;       id: 'polao',
+
+&nbsp;       icon: Soup,
+
+&nbsp;       title: "পোলাও",
+
+&nbsp;       titleEn: "Polao",
+
+&nbsp;       description: "ঈদ, বিয়ে বা যেকোনো অনুষ্ঠানে পারফেক্ট পোলাও তৈরি করুন।",
+
+&nbsp;       image: "https://onelytea.com/wp112/wp-content/uploads/2025/12/rice-07.webp",
+
+&nbsp;       color: "orange"
+
+&nbsp;   },
+
+&nbsp;   {
+
+&nbsp;       id: 'biryani',
+
+&nbsp;       icon: Beef,
+
+&nbsp;       title: "বিরিয়ানি",
+
+&nbsp;       titleEn: "Biryani",
+
+&nbsp;       description: "প্রতিটি দানা আলাদা, মশলার সাথে পারফেক্ট ব্যালেন্স।",
+
+&nbsp;       image: "https://onelytea.com/wp112/wp-content/uploads/2025/12/Gemini\_Generated\_Image\_en9yk7en9yk7en9y-1.png",
+
+&nbsp;       color: "red"
+
+&nbsp;   },
+
+&nbsp;   {
+
+&nbsp;       id: 'restaurant',
+
+&nbsp;       icon: Store,
+
+&nbsp;       title: "রেস্টুরেন্ট ও ক্যাটারিং",
+
+&nbsp;       titleEn: "Restaurant \& Catering",
+
+&nbsp;       description: "বাল্ক অর্ডারে বিশেষ মূল্য। ব্যবসায়ীদের জন্য আদর্শ।",
+
+&nbsp;       image: "https://onelytea.com/wp112/wp-content/uploads/2025/12/rice-04.jpg",
+
+&nbsp;       color: "emerald"
+
+&nbsp;   }
+
+];
+
+
+
+const colorClasses = {
+
+&nbsp;   amber: { bg: "bg-amber-500", light: "bg-amber-50", text: "text-amber-600", border: "border-amber-200" },
+
+&nbsp;   orange: { bg: "bg-orange-500", light: "bg-orange-50", text: "text-orange-600", border: "border-orange-200" },
+
+&nbsp;   red: { bg: "bg-red-500", light: "bg-red-50", text: "text-red-600", border: "border-red-200" },
+
+&nbsp;   emerald: { bg: "bg-emerald-500", light: "bg-emerald-50", text: "text-emerald-600", border: "border-emerald-200" }
+
+};
+
+
+
+export default function UseCases() {
+
+&nbsp;   const \[activeCase, setActiveCase] = useState(useCases\[0]);
+
+
+
+&nbsp;   return (
+
+&nbsp;       <section className="py-24 bg-gradient-to-b from-yellow-50 via-orange-50 to-amber-100">
+
+&nbsp;           <div className="max-w-7xl mx-auto px-4">
+
+&nbsp;               {/\* Section Header \*/}
+
+&nbsp;               <motion.div
+
+&nbsp;                   initial={{ opacity: 0, y: 30 }}
+
+&nbsp;                   whileInView={{ opacity: 1, y: 0 }}
+
+&nbsp;                   viewport={{ once: true }}
+
+&nbsp;                   transition={{ duration: 0.6 }}
+
+&nbsp;                   className="text-center mb-16"
+
+&nbsp;               >
+
+&nbsp;                   <span className="inline-block px-4 py-1.5 bg-gradient-to-r from-orange-100 to-amber-100 border border-orange-200 text-orange-800 rounded-full text-sm font-bold mb-4 shadow-sm">
+
+&nbsp;                       ব্যবহার
+
+&nbsp;                   </span>
+
+&nbsp;                   <h2 className="text-3xl md:text-5xl font-bold text-gray-900 mb-4">
+
+&nbsp;                       সব ধরনের রান্নায় <span className="text-green-600">পারফেক্ট</span>
+
+&nbsp;                   </h2>
+
+&nbsp;                   <p className="text-gray-600 max-w-2xl mx-auto text-lg">
+
+&nbsp;                       দৈনন্দিন ভাত থেকে শুরু করে বিশেষ অনুষ্ঠানের বিরিয়ানি—সবখানে অতুলনীয়
+
+&nbsp;                   </p>
+
+&nbsp;               </motion.div>
+
+
+
+&nbsp;               <div className="grid lg:grid-cols-2 gap-8 items-center">
+
+&nbsp;                   {/\* Left: Image Display \*/}
+
+&nbsp;                   <motion.div
+
+&nbsp;                       initial={{ opacity: 0, x: -30 }}
+
+&nbsp;                       whileInView={{ opacity: 1, x: 0 }}
+
+&nbsp;                       viewport={{ once: true }}
+
+&nbsp;                       className="relative"
+
+&nbsp;                   >
+
+&nbsp;                       <AnimatePresence mode="wait">
+
+&nbsp;                           <motion.div
+
+&nbsp;                               key={activeCase.id}
+
+&nbsp;                               initial={{ opacity: 0, scale: 0.95 }}
+
+&nbsp;                               animate={{ opacity: 1, scale: 1 }}
+
+&nbsp;                               exit={{ opacity: 0, scale: 0.95 }}
+
+&nbsp;                               transition={{ duration: 0.4 }}
+
+&nbsp;                               className="relative rounded-3xl overflow-hidden shadow-2xl aspect-\[4/3]"
+
+&nbsp;                           >
+
+&nbsp;                               <img 
+
+&nbsp;                                   src={activeCase.image}
+
+&nbsp;                                   alt={activeCase.title}
+
+&nbsp;                                   className="w-full h-full object-cover"
+
+&nbsp;                               />
+
+&nbsp;                               <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+
+&nbsp;                               
+
+&nbsp;                               {/\* Floating Label \*/}
+
+&nbsp;                               <div className="absolute bottom-6 left-6 right-6">
+
+&nbsp;                                   <motion.div
+
+&nbsp;                                       initial={{ y: 20, opacity: 0 }}
+
+&nbsp;                                       animate={{ y: 0, opacity: 1 }}
+
+&nbsp;                                       transition={{ delay: 0.2 }}
+
+&nbsp;                                       className="bg-white/95 backdrop-blur-sm rounded-2xl p-6"
+
+&nbsp;                                   >
+
+&nbsp;                                       <div className="flex items-center gap-3 mb-2">
+
+&nbsp;                                           <div className={`w-10 h-10 rounded-xl ${colorClasses\[activeCase.color].bg} flex items-center justify-center`}>
+
+&nbsp;                                               <activeCase.icon className="w-5 h-5 text-white" />
+
+&nbsp;                                           </div>
+
+&nbsp;                                           <div>
+
+&nbsp;                                               <h3 className="font-bold text-gray-900 text-lg">{activeCase.title}</h3>
+
+&nbsp;                                               <p className="text-sm text-gray-600">{activeCase.titleEn}</p>
+
+&nbsp;                                           </div>
+
+&nbsp;                                       </div>
+
+&nbsp;                                       <p className="text-gray-600 text-sm">{activeCase.description}</p>
+
+&nbsp;                                   </motion.div>
+
+&nbsp;                               </div>
+
+&nbsp;                           </motion.div>
+
+&nbsp;                       </AnimatePresence>
+
+
+
+&nbsp;                       {/\* Decorative Elements \*/}
+
+&nbsp;                       <div className="absolute -z-10 -bottom-4 -right-4 w-full h-full rounded-3xl bg-gradient-to-br from-orange-300 to-amber-400" />
+
+&nbsp;                   </motion.div>
+
+
+
+&nbsp;                   {/\* Right: Use Case Cards \*/}
+
+&nbsp;                   <motion.div
+
+&nbsp;                       initial={{ opacity: 0, x: 30 }}
+
+&nbsp;                       whileInView={{ opacity: 1, x: 0 }}
+
+&nbsp;                       viewport={{ once: true }}
+
+&nbsp;                       className="space-y-4"
+
+&nbsp;                   >
+
+&nbsp;                       {useCases.map((useCase, index) => (
+
+&nbsp;                           <motion.div
+
+&nbsp;                               key={useCase.id}
+
+&nbsp;                               initial={{ opacity: 0, y: 20 }}
+
+&nbsp;                               whileInView={{ opacity: 1, y: 0 }}
+
+&nbsp;                               viewport={{ once: true }}
+
+&nbsp;                               transition={{ delay: index \* 0.1 }}
+
+&nbsp;                               onClick={() => setActiveCase(useCase)}
+
+&nbsp;                               className={`cursor-pointer p-6 rounded-2xl border-2 transition-all duration-300 ${
+
+&nbsp;                                   activeCase.id === useCase.id 
+
+&nbsp;                                       ? `${colorClasses\[useCase.color].light} ${colorClasses\[useCase.color].border} shadow-lg` 
+
+&nbsp;                                       : 'bg-white border-gray-100 hover:border-gray-200 hover:shadow-md'
+
+&nbsp;                               }`}
+
+&nbsp;                           >
+
+&nbsp;                               <div className="flex items-center gap-4">
+
+&nbsp;                                   <div className={`w-14 h-14 rounded-xl flex items-center justify-center transition-colors ${
+
+&nbsp;                                       activeCase.id === useCase.id 
+
+&nbsp;                                           ? colorClasses\[useCase.color].bg 
+
+&nbsp;                                           : 'bg-gray-100'
+
+&nbsp;                                   }`}>
+
+&nbsp;                                       <useCase.icon className={`w-7 h-7 ${
+
+&nbsp;                                           activeCase.id === useCase.id ? 'text-white' : 'text-gray-500'
+
+&nbsp;                                       }`} />
+
+&nbsp;                                   </div>
+
+&nbsp;                                   <div className="flex-1">
+
+&nbsp;                                       <h3 className={`font-bold text-lg ${
+
+&nbsp;                                           activeCase.id === useCase.id 
+
+&nbsp;                                               ? colorClasses\[useCase.color].text 
+
+&nbsp;                                               : 'text-gray-900'
+
+&nbsp;                                       }`}>
+
+&nbsp;                                           {useCase.title}
+
+&nbsp;                                       </h3>
+
+&nbsp;                                       <p className="text-gray-500 text-sm">{useCase.titleEn}</p>
+
+&nbsp;                                   </div>
+
+&nbsp;                                   <div className={`w-3 h-3 rounded-full transition-colors ${
+
+&nbsp;                                       activeCase.id === useCase.id 
+
+&nbsp;                                           ? colorClasses\[useCase.color].bg 
+
+&nbsp;                                           : 'bg-gray-200'
+
+&nbsp;                                   }`} />
+
+&nbsp;                               </div>
+
+&nbsp;                           </motion.div>
+
+&nbsp;  
+
+# quality section 
+
+import React from 'react';
+
+import { motion } from 'framer-motion';
+
+import { ShieldCheck, Droplets, Sparkles, BadgeCheck, Factory, Leaf } from 'lucide-react';
+
+
+
+const qualityFeatures = \[
+
+&nbsp;   {
+
+&nbsp;       icon: Factory,
+
+&nbsp;       title: "হাইজিনিক প্রসেসিং",
+
+&nbsp;       description: "আধুনিক মেশিনে পরিষ্কার ও জীবাণুমুক্ত প্রক্রিয়ায় প্রস্তুত"
+
+&nbsp;   },
+
+&nbsp;   {
+
+&nbsp;       icon: ShieldCheck,
+
+&nbsp;       title: "কোয়ালিটি কন্ট্রোল",
+
+&nbsp;       description: "প্রতিটি ব্যাচ কঠোর মান নিয়ন্ত্রণের মধ্য দিয়ে যায়"
+
+&nbsp;   },
+
+&nbsp;   {
+
+&nbsp;       icon: Sparkles,
+
+&nbsp;       title: "কোনো আর্টিফিশিয়াল কালার নেই",
+
+&nbsp;       description: "সম্পূর্ণ প্রাকৃতিক, কোনো পলিশ বা রঙ যোগ করা হয় না"
+
+&nbsp;   },
+
+&nbsp;   {
+
+&nbsp;       icon: BadgeCheck,
+
+&nbsp;       title: "পরিবার অনুমোদিত",
+
+&nbsp;       description: "হাজারো পরিবার ও রেস্টুরেন্টের বিশ্বস্ত পছন্দ"
+
+&nbsp;   }
+
+];
+
+
+
+export default function QualitySection() {
+
+&nbsp;   return (
+
+&nbsp;       <section className="py-24 bg-gradient-to-b from-green-900 to-green-950 relative overflow-hidden">
+
+&nbsp;           {/\* Background Pattern \*/}
+
+&nbsp;           <div className="absolute inset-0 opacity-10">
+
+&nbsp;               <div className="absolute top-0 left-0 w-full h-full" 
+
+&nbsp;                   style={{
+
+&nbsp;                       backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+
+&nbsp;                   }}
+
+&nbsp;               />
+
+&nbsp;           </div>
+
+
+
+&nbsp;           {/\* Decorative Glow \*/}
+
+&nbsp;           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-\[600px] h-\[600px] bg-green-500/20 rounded-full blur-3xl" />
+
+
+
+&nbsp;           <div className="max-w-7xl mx-auto px-4 relative z-10">
+
+&nbsp;               <div className="grid lg:grid-cols-2 gap-16 items-center">
+
+&nbsp;                   {/\* Left: Content \*/}
+
+&nbsp;                   <motion.div
+
+&nbsp;                       initial={{ opacity: 0, x: -30 }}
+
+&nbsp;                       whileInView={{ opacity: 1, x: 0 }}
+
+&nbsp;                       viewport={{ once: true }}
+
+&nbsp;                       transition={{ duration: 0.6 }}
+
+&nbsp;                   >
+
+&nbsp;                       <span className="inline-flex items-center gap-2 px-4 py-1.5 bg-green-500/20 border border-green-400/30 rounded-full text-green-300 text-sm font-medium mb-6">
+
+&nbsp;                           <Leaf className="w-4 h-4" />
+
+&nbsp;                           বিশ্বাস ও গুণমান
+
+&nbsp;                       </span>
+
+&nbsp;                       
+
+&nbsp;                       <h2 className="text-3xl md:text-5xl font-bold text-white mb-6 leading-tight">
+
+&nbsp;                           গুণমানে কোনো
+
+&nbsp;                           <span className="block text-green-400">আপোষ নেই</span>
+
+&nbsp;                       </h2>
+
+&nbsp;                       
+
+&nbsp;                       <p className="text-green-100/80 text-lg mb-10 leading-relaxed">
+
+&nbsp;                           আমাদের প্রতিটি চালের দানা কঠোর মান নিয়ন্ত্রণের মধ্য দিয়ে যায়। 
+
+&nbsp;                           খাঁটি ধান থেকে আপনার রান্নাঘর পর্যন্ত—প্রতিটি ধাপে গুণমান নিশ্চিত।
+
+&nbsp;                       </p>
+
+
+
+&nbsp;                       {/\* Quality Features \*/}
+
+&nbsp;                       <div className="grid sm:grid-cols-2 gap-6">
+
+&nbsp;                           {qualityFeatures.map((feature, index) => (
+
+&nbsp;                               <motion.div
+
+&nbsp;                                   key={index}
+
+&nbsp;                                   initial={{ opacity: 0, y: 20 }}
+
+&nbsp;                                   whileInView={{ opacity: 1, y: 0 }}
+
+&nbsp;                                   viewport={{ once: true }}
+
+&nbsp;                                   transition={{ delay: index \* 0.1 }}
+
+&nbsp;                                   className="flex gap-4"
+
+&nbsp;                               >
+
+&nbsp;                                   <div className="w-12 h-12 rounded-xl bg-green-500/20 border border-green-400/30 flex items-center justify-center flex-shrink-0">
+
+&nbsp;                                       <feature.icon className="w-6 h-6 text-green-400" />
+
+&nbsp;                                   </div>
+
+&nbsp;                                   <div>
+
+&nbsp;                                       <h4 className="font-semibold text-white mb-1">{feature.title}</h4>
+
+&nbsp;                                       <p className="text-green-100/60 text-sm">{feature.description}</p>
+
+&nbsp;                                   </div>
+
+&nbsp;                               </motion.div>
+
+&nbsp;                           ))}
+
+&nbsp;                       </div>
+
+&nbsp;                   </motion.div>
+
+
+
+&nbsp;                   {/\* Right: Image \*/}
+
+&nbsp;                   <motion.div
+
+&nbsp;                       initial={{ opacity: 0, x: 30 }}
+
+&nbsp;                       whileInView={{ opacity: 1, x: 0 }}
+
+&nbsp;                       viewport={{ once: true }}
+
+&nbsp;                       transition={{ duration: 0.6 }}
+
+&nbsp;                       className="relative"
+
+&nbsp;                   >
+
+&nbsp;                       <div className="relative rounded-3xl overflow-hidden shadow-2xl shadow-green-900/50">
+
+&nbsp;                           <img 
+
+&nbsp;                               src="https://onelytea.com/wp112/wp-content/uploads/2025/12/rice-05.avif"
+
+&nbsp;                               alt="Quality Rice"
+
+&nbsp;                               className="w-full aspect-square object-cover"
+
+&nbsp;                           />
+
+&nbsp;                           <div className="absolute inset-0 bg-gradient-to-t from-green-900/50 to-transparent" />
+
+&nbsp;                       </div>
+
+
+
+&nbsp;                       {/\* Floating Badge \*/}
+
+&nbsp;                       <motion.div
+
+&nbsp;                           initial={{ scale: 0 }}
+
+&nbsp;                           whileInView={{ scale: 1 }}
+
+&nbsp;                           viewport={{ once: true }}
+
+&nbsp;                           transition={{ delay: 0.3, type: "spring" }}
+
+&nbsp;                           className="absolute -top-6 -right-6 w-32 h-32 bg-gradient-to-br from-amber-400 to-yellow-500 rounded-full flex items-center justify-center shadow-xl"
+
+&nbsp;                       >
+
+&nbsp;                           <div className="text-center">
+
+&nbsp;                               <div className="text-3xl font-bold text-green-900">১০০%</div>
+
+&nbsp;                               <div className="text-sm text-green-800 font-medium">খাঁটি</div>
+
+&nbsp;                           </div>
+
+&nbsp;                       </motion.div>
+
+
+
+&nbsp;                       {/\* Decorative Ring \*/}
+
+&nbsp;                       <div className="absolute -z-10 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-\[110%] h-\[110%] border-2 border-green-500/20 rounded-full" />
+
+&nbsp;                   </motion.div>
+
+&nbsp;               </div>
+
+&nbsp;           </div>
+
+&nbsp;       </section>
+
+&nbsp;   );
+
+}  
+
+# contact section 
+
+import React from 'react';
+
+import { motion } from 'framer-motion';
+
+import { Phone, MessageCircle, Facebook, Instagram, MapPin, Clock, ArrowRight } from 'lucide-react';
+
+import { Button } from "@/components/ui/button";
+
+
+
+export default function ContactSection() {
+
+&nbsp;   const handleWhatsApp = () => {
+
+&nbsp;       const phone = "8801708681830";
+
+&nbsp;       const message = encodeURIComponent("আসসালামু আলাইকুম, আমি প্রিমিয়াম চাল অর্ডার করতে চাই।");
+
+&nbsp;       window.open(`https://wa.me/${phone}?text=${message}`, '\_blank');
+
+&nbsp;   };
+
+
+
+&nbsp;   const handleCall = () => {
+
+&nbsp;       window.open('tel:+8801708681830', '\_self');
+
+&nbsp;   };
+
+
+
+&nbsp;   return (
+
+&nbsp;       <section id="contact" className="py-24 bg-gradient-to-b from-amber-100 via-orange-50 to-yellow-100 relative overflow-hidden">
+
+&nbsp;           {/\* Decorative Background \*/}
+
+&nbsp;           <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-br from-orange-300/40 to-amber-300/40 rounded-full blur-3xl translate-x-1/2 -translate-y-1/2" />
+
+&nbsp;           <div className="absolute bottom-0 left-0 w-96 h-96 bg-gradient-to-br from-yellow-300/40 to-orange-300/40 rounded-full blur-3xl -translate-x-1/2 translate-y-1/2" />
+
+
+
+&nbsp;           <div className="max-w-7xl mx-auto px-4 relative z-10">
+
+&nbsp;               {/\* Section Header \*/}
+
+&nbsp;               <motion.div
+
+&nbsp;                   initial={{ opacity: 0, y: 30 }}
+
+&nbsp;                   whileInView={{ opacity: 1, y: 0 }}
+
+&nbsp;                   viewport={{ once: true }}
+
+&nbsp;                   transition={{ duration: 0.6 }}
+
+&nbsp;                   className="text-center mb-16"
+
+&nbsp;               >
+
+&nbsp;                   <span className="inline-block px-4 py-1.5 bg-gradient-to-r from-orange-100 to-amber-200 border border-amber-300 text-orange-800 rounded-full text-sm font-bold mb-4 shadow-sm">
+
+&nbsp;                       যোগাযোগ
+
+&nbsp;                   </span>
+
+&nbsp;                   <h2 className="text-3xl md:text-5xl font-bold text-gray-900 mb-4">
+
+&nbsp;                       অর্ডার করতে <span className="text-amber-600">যোগাযোগ করুন</span>
+
+&nbsp;                   </h2>
+
+&nbsp;                   <p className="text-gray-600 max-w-2xl mx-auto text-lg">
+
+&nbsp;                       আজই অর্ডার করুন এবং উপভোগ করুন প্রিমিয়াম মানের চাল
+
+&nbsp;                   </p>
+
+&nbsp;               </motion.div>
+
+
+
+&nbsp;               <div className="grid lg:grid-cols-2 gap-12">
+
+&nbsp;                   {/\* Left: Contact Cards \*/}
+
+&nbsp;                   <motion.div
+
+&nbsp;                       initial={{ opacity: 0, x: -30 }}
+
+&nbsp;                       whileInView={{ opacity: 1, x: 0 }}
+
+&nbsp;                       viewport={{ once: true }}
+
+&nbsp;                       className="space-y-6"
+
+&nbsp;                   >
+
+&nbsp;                       {/\* WhatsApp Card \*/}
+
+&nbsp;                       <motion.div
+
+&nbsp;                           whileHover={{ scale: 1.02 }}
+
+&nbsp;                           onClick={handleWhatsApp}
+
+&nbsp;                           className="cursor-pointer bg-gradient-to-r from-green-500 to-green-600 rounded-3xl p-8 text-white shadow-xl shadow-green-500/30 hover:shadow-green-500/40 transition-shadow"
+
+&nbsp;                       >
+
+&nbsp;                           <div className="flex items-center gap-6">
+
+&nbsp;                               <div className="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center">
+
+&nbsp;                                   <MessageCircle className="w-8 h-8" />
+
+&nbsp;                               </div>
+
+&nbsp;                               <div className="flex-1">
+
+&nbsp;                                   <h3 className="text-xl font-bold mb-1">WhatsApp অর্ডার</h3>
+
+&nbsp;                                   <p className="text-green-100">01708681830</p>
+
+&nbsp;                               </div>
+
+&nbsp;                               <ArrowRight className="w-6 h-6" />
+
+&nbsp;                           </div>
+
+&nbsp;                       </motion.div>
+
+
+
+&nbsp;                       {/\* Phone Card \*/}
+
+&nbsp;                       <motion.div
+
+&nbsp;                           whileHover={{ scale: 1.02 }}
+
+&nbsp;                           onClick={handleCall}
+
+&nbsp;                           className="cursor-pointer bg-gradient-to-r from-blue-500 to-blue-600 rounded-3xl p-8 text-white shadow-xl shadow-blue-500/30 hover:shadow-blue-500/40 transition-shadow"
+
+&nbsp;                       >
+
+&nbsp;                           <div className="flex items-center gap-6">
+
+&nbsp;                               <div className="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center">
+
+&nbsp;                                   <Phone className="w-8 h-8" />
+
+&nbsp;                               </div>
+
+&nbsp;                               <div className="flex-1">
+
+&nbsp;                                   <h3 className="text-xl font-bold mb-1">ফোন করুন</h3>
+
+&nbsp;                                   <p className="text-blue-100">01708681830</p>
+
+&nbsp;                               </div>
+
+&nbsp;                               <ArrowRight className="w-6 h-6" />
+
+&nbsp;                           </div>
+
+&nbsp;                       </motion.div>
+
+
+
+&nbsp;                       {/\* Social Media \*/}
+
+&nbsp;                       <div className="bg-gradient-to-br from-white to-amber-50 rounded-3xl p-8 shadow-xl border border-amber-200">
+
+&nbsp;                           <h3 className="font-bold text-gray-900 mb-6">সোশ্যাল মিডিয়া</h3>
+
+&nbsp;                           <div className="flex gap-4">
+
+&nbsp;                               <motion.a
+
+&nbsp;                                   href="https://www.facebook.com/Md.Azizul.Hoque.219791"
+
+&nbsp;                                   target="\_blank"
+
+&nbsp;                                   rel="noopener noreferrer"
+
+&nbsp;                                   whileHover={{ scale: 1.1 }}
+
+&nbsp;                                   className="w-14 h-14 bg-blue-100 rounded-2xl flex items-center justify-center hover:bg-blue-500 group transition-colors"
+
+&nbsp;                               >
+
+&nbsp;                                   <Facebook className="w-7 h-7 text-blue-600 group-hover:text-white transition-colors" />
+
+&nbsp;                               </motion.a>
+
+&nbsp;                               <motion.a
+
+&nbsp;                                   href="https://www.instagram.com/m.azizulhok/"
+
+&nbsp;                                   target="\_blank"
+
+&nbsp;                                   rel="noopener noreferrer"
+
+&nbsp;                                   whileHover={{ scale: 1.1 }}
+
+&nbsp;                                   className="w-14 h-14 bg-pink-100 rounded-2xl flex items-center justify-center hover:bg-gradient-to-br hover:from-purple-500 hover:to-pink-500 group transition-all"
+
+&nbsp;                               >
+
+&nbsp;                                   <Instagram className="w-7 h-7 text-pink-600 group-hover:text-white transition-colors" />
+
+&nbsp;                               </motion.a>
+
+&nbsp;                           </div>
+
+&nbsp;                       </div>
+
+&nbsp;                   </motion.div>
+
+
+
+&nbsp;                   {/\* Right: CTA Box \*/}
+
+&nbsp;                   <motion.div
+
+&nbsp;                       initial={{ opacity: 0, x: 30 }}
+
+&nbsp;                       whileInView={{ opacity: 1, x: 0 }}
+
+&nbsp;                       viewport={{ once: true }}
+
+&nbsp;                       className="relative"
+
+&nbsp;                   >
+
+&nbsp;                       <div className="bg-gradient-to-br from-amber-500 via-yellow-500 to-orange-500 rounded-3xl p-10 text-white relative overflow-hidden">
+
+&nbsp;                           {/\* Pattern \*/}
+
+&nbsp;                           <div className="absolute inset-0 opacity-10">
+
+&nbsp;                               <div className="absolute inset-0" 
+
+&nbsp;                                   style={{
+
+&nbsp;                                       backgroundImage: `radial-gradient(circle, white 1px, transparent 1px)`,
+
+&nbsp;                                       backgroundSize: '20px 20px'
+
+&nbsp;                                   }}
+
+# &nbsp;Footer
+
+import React from 'react';
+
+import { Wheat, Heart, Phone, MessageCircle, Facebook, Instagram } from 'lucide-react';
+
+
+
+export default function Footer() {
+
+&nbsp;   return (
+
+&nbsp;       <footer className="bg-gradient-to-b from-amber-900 via-orange-900 to-gray-900 text-white pt-16 pb-8">
+
+&nbsp;           <div className="max-w-7xl mx-auto px-4">
+
+&nbsp;               <div className="grid md:grid-cols-3 gap-12 mb-12">
+
+&nbsp;                   {/\* Brand \*/}
+
+&nbsp;                   <div>
+
+&nbsp;                       <div className="flex items-center gap-3 mb-4">
+
+&nbsp;                           <div className="w-12 h-12 bg-gradient-to-br from-amber-500 to-yellow-500 rounded-xl flex items-center justify-center">
+
+&nbsp;                               <Wheat className="w-6 h-6 text-white" />
+
+&nbsp;                           </div>
+
+&nbsp;                           <div>
+
+&nbsp;                               <h3 className="text-xl font-bold">প্রিমিয়াম রাইস</h3>
+
+&nbsp;                               <p className="text-gray-400 text-sm">Premium Quality Rice</p>
+
+&nbsp;                           </div>
+
+&nbsp;                       </div>
+
+&nbsp;                       <p className="text-gray-400 leading-relaxed">
+
+&nbsp;                           প্রতিদিনের খাবারে আনুন প্রিমিয়াম মানের নিশ্চয়তা। 
+
+&nbsp;                           লম্বা দানা, নরম টেক্সচার, প্রাকৃতিক সুগন্ধ।
+
+&nbsp;                       </p>
+
+&nbsp;                   </div>
+
+
+
+&nbsp;                   {/\* Quick Links \*/}
+
+&nbsp;                   <div>
+
+&nbsp;                       <h4 className="font-bold mb-4 text-lg">দ্রুত লিঙ্ক</h4>
+
+&nbsp;                       <ul className="space-y-3 text-gray-400">
+
+&nbsp;                           <li><a href="#highlights" className="hover:text-amber-400 transition-colors">আমাদের বৈশিষ্ট্য</a></li>
+
+&nbsp;                           <li><a href="#contact" className="hover:text-amber-400 transition-colors">যোগাযোগ</a></li>
+
+&nbsp;                           <li><a href="https://wa.me/8801708681830" className="hover:text-amber-400 transition-colors">অর্ডার করুন</a></li>
+
+&nbsp;                       </ul>
+
+&nbsp;                   </div>
+
+
+
+&nbsp;                   {/\* Contact \*/}
+
+&nbsp;                   <div>
+
+&nbsp;                       <h4 className="font-bold mb-4 text-lg">যোগাযোগ</h4>
+
+&nbsp;                       <ul className="space-y-3">
+
+&nbsp;                           <li>
+
+&nbsp;                               <a href="tel:+8801708681830" className="flex items-center gap-3 text-gray-400 hover:text-amber-400 transition-colors">
+
+&nbsp;                                   <Phone className="w-5 h-5" />
+
+&nbsp;                                   01708681830
+
+&nbsp;                               </a>
+
+&nbsp;                           </li>
+
+&nbsp;                           <li>
+
+&nbsp;                               <a href="https://wa.me/8801708681830" className="flex items-center gap-3 text-gray-400 hover:text-green-400 transition-colors">
+
+&nbsp;                                   <MessageCircle className="w-5 h-5" />
+
+&nbsp;                                   WhatsApp
+
+&nbsp;                               </a>
+
+&nbsp;                           </li>
+
+&nbsp;                       </ul>
+
+&nbsp;                       <div className="flex gap-3 mt-6">
+
+&nbsp;                           <a 
+
+&nbsp;                               href="https://www.facebook.com/Md.Azizul.Hoque.219791"
+
+&nbsp;                               target="\_blank"
+
+&nbsp;                               rel="noopener noreferrer"
+
+&nbsp;                               className="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center hover:bg-blue-600 transition-colors"
+
+&nbsp;                           >
+
+&nbsp;                               <Facebook className="w-5 h-5" />
+
+&nbsp;                           </a>
+
+&nbsp;                           <a 
+
+&nbsp;                               href="https://www.instagram.com/m.azizulhok/"
+
+&nbsp;                               target="\_blank"
+
+&nbsp;                               rel="noopener noreferrer"
+
+&nbsp;                               className="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center hover:bg-pink-600 transition-colors"
+
+&nbsp;                           >
+
+&nbsp;                               <Instagram className="w-5 h-5" />
+
+&nbsp;                           </a>
+
+&nbsp;                       </div>
+
+&nbsp;                   </div>
+
+&nbsp;               </div>
+
+
+
+&nbsp;               {/\* Divider \*/}
+
+&nbsp;               <div className="border-t border-gray-800 pt-8">
+
+&nbsp;                   <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+
+&nbsp;                       <p className="text-gray-500 text-sm">
+
+&nbsp;                           © ২০২৪ প্রিমিয়াম রাইস। সর্বস্বত্ব সংরক্ষিত।
+
+&nbsp;                       </p>
+
+&nbsp;                       <p className="text-gray-500 text-sm flex items-center gap-1">
+
+&nbsp;                           তৈরি করা হয়েছে <Heart className="w-4 h-4 text-red-500" /> দিয়ে বাংলাদেশে
+
+&nbsp;                       </p>
+
+&nbsp;                   </div>
+
+&nbsp;               </div>
+
+&nbsp;           </div>
+
+&nbsp;       </footer>
+
+&nbsp;   );
+
+}   
+
+
+
+## FAQ
+
+import React, { useState } from 'react';
+
+import { motion, AnimatePresence } from 'framer-motion';
+
+import { ChevronDown, HelpCircle } from 'lucide-react';
+
+
+
+const faqs = \[
+
+&nbsp;   {
+
+&nbsp;       question: "আপনাদের চাল কি সত্যিই ১০০% খাঁটি?",
+
+&nbsp;       answer: "হ্যাঁ, আমাদের চাল সম্পূর্ণ খাঁটি এবং প্রাকৃতিক। কোনো ভেজাল, কৃত্রিম রঙ বা পলিশ ব্যবহার করা হয় না। প্রতিটি ব্যাচ কঠোর মান নিয়ন্ত্রণের মধ্য দিয়ে যায়।"
+
+&nbsp;   },
+
+&nbsp;   {
+
+&nbsp;       question: "ডেলিভারি কতদিনে পাব?",
+
+&nbsp;       answer: "ঢাকার ভিতরে ১-২ দিন এবং ঢাকার বাইরে ২-৪ দিনের মধ্যে ডেলিভারি দেওয়া হয়। বাল্ক অর্ডারের জন্য আলাদা সময় লাগতে পারে।"
+
+&nbsp;   },
+
+&nbsp;   {
+
+&nbsp;       question: "বাল্ক অর্ডারে কি ছাড় পাওয়া যায়?",
+
+&nbsp;       answer: "হ্যাঁ! ৫০ কেজি বা তার বেশি অর্ডারে বিশেষ মূল্যছাড় পাবেন। রেস্টুরেন্ট এবং ব্যবসায়ীদের জন্য আরও বেশি সুবিধা রয়েছে।"
+
+&nbsp;   },
+
+&nbsp;   {
+
+&nbsp;       question: "পেমেন্ট কীভাবে করব?",
+
+&nbsp;       answer: "ক্যাশ অন ডেলিভারি (COD), বিকাশ, নগদ, রকেট - সব ধরনের পেমেন্ট গ্রহণ করা হয়। অগ্রিম পেমেন্টে অতিরিক্ত ছাড় পাবেন।"
+
+&nbsp;   },
+
+&nbsp;   {
+
+&nbsp;       question: "চাল কতদিন সংরক্ষণ করা যায়?",
+
+&nbsp;       answer: "আধুনিক প্যাকেজিংয়ের কারণে শুষ্ক ও ঠান্ডা স্থানে ৬-১২ মাস পর্যন্ত সংরক্ষণ করা যায়। প্যাকেটে মেয়াদ উল্লেখ থাকে।"
+
+&nbsp;   },
+
+&nbsp;   {
+
+&nbsp;       question: "রিটার্ন পলিসি কী?",
+
+&nbsp;       answer: "পণ্য ডেলিভারির সময় যদি কোনো সমস্যা থাকে, সাথে সাথে রিটার্ন করতে পারবেন। আমরা ১০০% গ্রাহক সন্তুষ্টির নিশ্চয়তা দিই।"
+
+&nbsp;   }
+
+];
+
+
+
+export default function FAQ() {
+
+&nbsp;   const \[openIndex, setOpenIndex] = useState(null);
+
+
+
+&nbsp;   return (
+
+&nbsp;       <section className="py-24 bg-gradient-to-b from-amber-50 to-orange-50 relative overflow-hidden">
+
+&nbsp;           {/\* Decorative Elements \*/}
+
+&nbsp;           <div className="absolute top-0 left-0 w-96 h-96 bg-gradient-to-br from-amber-200/40 to-yellow-200/40 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2" />
+
+&nbsp;           <div className="absolute bottom-0 right-0 w-96 h-96 bg-gradient-to-br from-orange-200/40 to-red-200/40 rounded-full blur-3xl translate-x-1/2 translate-y-1/2" />
+
+
+
+&nbsp;           <div className="max-w-4xl mx-auto px-4 relative z-10">
+
+&nbsp;               {/\* Section Header \*/}
+
+&nbsp;               <motion.div
+
+&nbsp;                   initial={{ opacity: 0, y: 30 }}
+
+&nbsp;                   whileInView={{ opacity: 1, y: 0 }}
+
+&nbsp;                   viewport={{ once: true }}
+
+&nbsp;                   transition={{ duration: 0.6 }}
+
+&nbsp;                   className="text-center mb-16"
+
+&nbsp;               >
+
+&nbsp;                   <div className="inline-flex items-center gap-2 px-4 py-2 bg-amber-100 border border-amber-200 rounded-full mb-6">
+
+&nbsp;                       <HelpCircle className="w-4 h-4 text-amber-700" />
+
+&nbsp;                       <span className="text-amber-700 text-sm font-semibold">সাধারণ প্রশ্ন</span>
+
+&nbsp;                   </div>
+
+&nbsp;                   <h2 className="text-3xl md:text-5xl font-bold text-gray-900 mb-4">
+
+&nbsp;                       প্রায়শই জিজ্ঞাসিত <span className="text-amber-600">প্রশ্নাবলী</span>
+
+&nbsp;                   </h2>
+
+&nbsp;                   <p className="text-gray-600 text-lg">
+
+&nbsp;                       আপনার মনে থাকা সব প্রশ্নের উত্তর এখানে
+
+&nbsp;                   </p>
+
+&nbsp;               </motion.div>
+
+
+
+&nbsp;               {/\* FAQ Items \*/}
+
+&nbsp;               <div className="space-y-4">
+
+&nbsp;                   {faqs.map((faq, index) => (
+
+&nbsp;                       <motion.div
+
+&nbsp;                           key={index}
+
+&nbsp;                           initial={{ opacity: 0, y: 20 }}
+
+&nbsp;                           whileInView={{ opacity: 1, y: 0 }}
+
+&nbsp;                           viewport={{ once: true }}
+
+&nbsp;                           transition={{ delay: index \* 0.1 }}
+
+&nbsp;                       >
+
+&nbsp;                           <button
+
+&nbsp;                               onClick={() => setOpenIndex(openIndex === index ? null : index)}
+
+&nbsp;                               className={`w-full text-left transition-all duration-300 ${
+
+&nbsp;                                   openIndex === index 
+
+&nbsp;                                       ? 'bg-gradient-to-r from-amber-500 to-orange-500 text-white shadow-xl shadow-amber-500/30' 
+
+&nbsp;                                       : 'bg-white/80 backdrop-blur-sm hover:bg-white text-gray-900 shadow-lg hover:shadow-xl border border-amber-100'
+
+&nbsp;                               } rounded-2xl p-6`}
+
+&nbsp;                           >
+
+&nbsp;                               <div className="flex items-center justify-between gap-4">
+
+&nbsp;                                   <h3 className="font-bold text-lg pr-4">
+
+&nbsp;                                       {faq.question}
+
+&nbsp;                                   </h3>
+
+&nbsp;                                   <motion.div
+
+&nbsp;                                       animate={{ rotate: openIndex === index ? 180 : 0 }}
+
+&nbsp;                                       transition={{ duration: 0.3 }}
+
+&nbsp;                                       className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center ${
+
+&nbsp;                                           openIndex === index 
+
+&nbsp;                                               ? 'bg-white/20' 
+
+&nbsp;                                               : 'bg-amber-100'
+
+&nbsp;                                       }`}
+
+&nbsp;                                   >
+
+&nbsp;                                       <ChevronDown className={`w-5 h-5 ${
+
+&nbsp;                                           openIndex === index ? 'text-white' : 'text-amber-600'
+
+&nbsp;                                       }`} />
+
+&nbsp;                                   </motion.div>
+
+&nbsp;                               </div>
+
+
+
+&nbsp;                               <AnimatePresence>
+
+&nbsp;                                   {openIndex === index \&\& (
+
+&nbsp;                                       <motion.div
+
+&nbsp;                                           initial={{ height: 0, opacity: 0 }}
+
+&nbsp;                                           animate={{ height: 'auto', opacity: 1 }}
+
+&nbsp;                                           exit={{ height: 0, opacity: 0 }}
+
+&nbsp;                                           transition={{ duration: 0.3 }}
+
+&nbsp;                                           className="overflow-hidden"
+
+&nbsp;                                       >
+
+&nbsp;                                           <p className={`pt-4 leading-relaxed ${
+
+&nbsp;                                               openIndex === index ? 'text-amber-50' : 'text-gray-600'
+
+&nbsp;                                           }`}>
+
+&nbsp;                                               {faq.answer}
+
+&nbsp;                                           </p>
+
+&nbsp;                                       </motion.div>
+
+&nbsp;                                   )}
+
+&nbsp;                               </AnimatePresence>
+
+&nbsp;                           </button>
+
+&nbsp;                       </motion.div>
+
+&nbsp;                   ))}
+
+&nbsp;               </div>
+
+
+
+&nbsp;               {/\* Bottom CTA \*/}
+
+&nbsp;               <motion.div
+
+&nbsp;                   initial={{ opacity: 0, y: 30 }}
+
+&nbsp;                   whileInView={{ opacity: 1, y: 0 }}
+
+&nbsp;                   viewport={{ once: true }}
+
+&nbsp;                   className="mt-16 text-center"
+
+&nbsp;               >
+
+&nbsp;                   <p className="text-gray-600 mb-4">আরও কিছু জানতে চান?</p>
+
+&nbsp;                   <a 
+
+&nbsp;                       href="https://wa.me/8801708681830"
+
+&nbsp;                       target="\_blank"
+
+&nbsp;                       rel="noopener noreferrer"
+
+&nbsp;                       className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-green-500 to-green-600 text-white font-bold rounded-full hover:from-green-600 hover:to-green-700 shadow-xl shadow-green-500/30 hover:shadow-green-500/50 transition-all duration-300"
+
+&nbsp;                   >
+
+&nbsp;                       <HelpCircle className="w-5 h-5" />
+
+&nbsp;                       WhatsApp এ প্রশ্ন করুন
+
+&nbsp;                   </a>
+
+&nbsp;               </motion.div>
+
+&nbsp;           </div>
+
+&nbsp;       </section>
+
+&nbsp;   );
+
+}
+
+
+
+
+
